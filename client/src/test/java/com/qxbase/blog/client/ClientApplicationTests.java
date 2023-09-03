@@ -1,10 +1,10 @@
-package com.qxbase.application;
+package com.qxbase.blog.client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class ClientApplicationTests {
 
     @Test
     void contextLoads() {

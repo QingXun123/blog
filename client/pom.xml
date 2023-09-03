@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.qxbase.blog</groupId>
-    <artifactId>application</artifactId>
+    <artifactId>client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>application</name>
-    <description>application</description>
+    <name>client</name>
+    <description>client</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,7 +54,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.qxbase.blog.application.BlogApplication</mainClass>
+                    <mainClass>com.qxbase.blog.client.ClientApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
