@@ -4,18 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.qxbase.blog</groupId>
-        <artifactId>blog</artifactId>
+        <groupId>com.qxbase.blog.server</groupId>
+        <artifactId>server</artifactId>
         <version>1.0</version>
     </parent>
     <packaging>pom</packaging>
-    <modules>
-        <module>application-reception</module>
-        <module>application-background</module>
-    </modules>
 
-    <groupId>com.qxbase.blog.application</groupId>
-    <artifactId>application</artifactId>
-
+    <groupId>com.qxbase.blog.server.reception</groupId>
+    <artifactId>server-reception</artifactId>
 
 </project>

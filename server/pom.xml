@@ -10,12 +10,11 @@
     </parent>
     <packaging>pom</packaging>
     <modules>
-        <module>application-reception</module>
-        <module>application-background</module>
+        <module>server-reception</module>
+        <module>server-background</module>
     </modules>
 
-    <groupId>com.qxbase.blog.application</groupId>
-    <artifactId>application</artifactId>
-
+    <groupId>com.qxbase.blog.server</groupId>
+    <artifactId>server</artifactId>
 
 </project>

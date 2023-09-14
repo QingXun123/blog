@@ -1,19 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.qxbase</groupId>
+
+    <groupId>com.qxbase.blog</groupId>
     <artifactId>blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>blog</name>
-    <description>blog</description>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>config</module>
+        <module>application</module>
+        <module>common</module>
+        <module>data</module>
+        <module>extra</module>
+        <module>server</module>
+    </modules>
+
     <properties>
-        <java.version>1.8</java.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.6.13</spring-boot.version>
+
+        <!--<spring-cloud.version>Dalston.SR3</spring-cloud.version>-->
+        <hutool-bom.version>5.8.16</hutool-bom.version>
+        <easyexcel.version>2.1.1</easyexcel.version>
+
+        <!-- data-config -->
+        <druid-spring-boot-starter.version>1.1.14</druid-spring-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
     </properties>
+
     <dependencies>
+        <!--DigestUtils工具包的依赖-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -24,9 +50,66 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.7</version>
+        </dependency>
+        <!-- 操作redis的依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.6.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>2.0.7</version>
+        </dependency>
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.ygxc.dodobird</groupId>
+                <artifactId>ygxc-dodobird</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -34,39 +117,68 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- config 模块 -->
+            <dependency>
+                <groupId>com.qxbase.blog.config</groupId>
+                <artifactId>common-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.config</groupId>
+                <artifactId>data-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.config</groupId>
+                <artifactId>swagger-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.config</groupId>
+                <artifactId>web-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- data 模块 -->
+            <dependency>
+                <groupId>com.qxbase.blog.config</groupId>
+                <artifactId>data-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.server.data</groupId>
+                <artifactId>data-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- common 模块 -->
+            <dependency>
+                <groupId>com.qxbase.blog.common</groupId>
+                <artifactId>common-framework</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.common</groupId>
+                <artifactId>common-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- application 模块 -->
+            <dependency>
+                <groupId>com.qxbase.blog.application</groupId>
+                <artifactId>application-background</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.application</groupId>
+                <artifactId>application-reception</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- server 模块 -->
+            
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <configuration>
-                    <mainClass>com.qxbase.blog.BlogApplication</mainClass>
-                    <skip>true</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

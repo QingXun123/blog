@@ -9,13 +9,8 @@
         <version>1.0</version>
     </parent>
     <packaging>pom</packaging>
-    <modules>
-        <module>application-reception</module>
-        <module>application-background</module>
-    </modules>
 
-    <groupId>com.qxbase.blog.application</groupId>
-    <artifactId>application</artifactId>
-
+    <groupId>com.qxbase.blog.extra</groupId>
+    <artifactId>extra</artifactId>
 
 </project>

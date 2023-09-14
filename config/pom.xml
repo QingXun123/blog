@@ -10,12 +10,16 @@
     </parent>
     <packaging>pom</packaging>
     <modules>
-        <module>application-reception</module>
-        <module>application-background</module>
+        <module>common-config</module>
+        <module>data-config</module>
+        <module>web-config</module>
+        <module>swagger-config</module>
     </modules>
 
-    <groupId>com.qxbase.blog.application</groupId>
-    <artifactId>application</artifactId>
+    <artifactId>config</artifactId>
 
+    <dependencies>
+
+    </dependencies>
 
 </project>

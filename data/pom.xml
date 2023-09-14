@@ -10,12 +10,23 @@
     </parent>
     <packaging>pom</packaging>
     <modules>
-        <module>application-reception</module>
-        <module>application-background</module>
+        <module>data-web</module>
     </modules>
 
-    <groupId>com.qxbase.blog.application</groupId>
-    <artifactId>application</artifactId>
+    <groupId>com.qxbase.blog.data</groupId>
+    <artifactId>data</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <version>${mybatis-plus-boot-starter.version}</version>
+        </dependency>
+
+    </dependencies>
 
 </project>
