@@ -9,6 +9,9 @@
         <version>1.0</version>
     </parent>
     <packaging>pom</packaging>
+    <modules>
+        <module>user-server</module>
+    </modules>
 
     <groupId>com.qxbase.blog.server.reception</groupId>
     <artifactId>server-reception</artifactId>
