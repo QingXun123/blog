@@ -78,18 +78,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- data 模块 -->
-            <dependency>
-                <groupId>com.qxbase.blog.config</groupId>
-                <artifactId>data-config</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.qxbase.blog.server.data</groupId>
-                <artifactId>data-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- common 模块 -->
             <dependency>
                 <groupId>com.qxbase.blog.common</groupId>
@@ -114,10 +102,32 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- data 模块 -->
+            <dependency>
+                <groupId>com.qxbase.blog.config</groupId>
+                <artifactId>data-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.server.data</groupId>
+                <artifactId>data-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.data</groupId>
+                <artifactId>data-essay</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- server 模块 -->
             <dependency>
                 <groupId>com.qxbase.blog.server.reception</groupId>
                 <artifactId>user-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.server.essay</groupId>
+                <artifactId>essay-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

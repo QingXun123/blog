@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>data-web</module>
+        <module>data-essay</module>
     </modules>
 
     <groupId>com.qxbase.blog.data</groupId>

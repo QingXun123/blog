@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>user-server</module>
+        <module>essay-server</module>
     </modules>
 
     <groupId>com.qxbase.blog.server.reception</groupId>

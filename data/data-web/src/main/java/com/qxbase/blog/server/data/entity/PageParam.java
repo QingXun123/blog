@@ -54,7 +54,7 @@ import java.util.regex.Pattern;
 @ApiModel("分页参数")
 public class PageParam {
 
-	@ApiModelProperty(value = "当前页", example = "1", required = true)
+	@ApiModelProperty(value = "当前页", example = "0", required = true)
 	private Integer pageIndex;
 	@ApiModelProperty(value = "页大小", example = "10", position = 1, required = true)
 	private Integer pageSize;

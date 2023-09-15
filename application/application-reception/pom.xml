@@ -23,6 +23,10 @@
             <groupId>com.qxbase.blog.server.reception</groupId>
             <artifactId>user-server</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.qxbase.blog.server.essay</groupId>
+            <artifactId>essay-server</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

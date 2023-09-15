@@ -32,11 +32,22 @@ public class SwaggerConfig {
 	 }
 
 	@Bean
-	public Docket api1() {
+	public Docket userApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("reception")
+				.groupName("用户模块")
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.qxbase.blog.server.reception.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.qxbase.blog.server.user.controller"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo());
+	}
+
+	@Bean
+	public Docket essayApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("文章模块")
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.qxbase.blog.server.essay.controller"))
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(apiInfo());
