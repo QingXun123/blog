@@ -115,7 +115,11 @@
             </dependency>
 
             <!-- server 模块 -->
-            
+            <dependency>
+                <groupId>com.qxbase.blog.server.reception</groupId>
+                <artifactId>user-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

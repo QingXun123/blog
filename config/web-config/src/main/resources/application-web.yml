@@ -1,0 +1,69 @@
+server:
+  # 全局唯一机器id用于雪花算法生成唯一单号
+  machine-id: 1
+
+spring:
+  application:
+    name: blog
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      # 5M，单个文件大小
+      max-file-size: 1024MB
+      # 50M 总上传的数据大小, 默认10M
+      max-request-size: 1024MB
+  #thymeleaf
+  #spring.thymeleaf.prefix=classpath:/templates/
+  #spring.thymeleaf.suffix=.jsp
+  thymeleaf:
+    encoding: UTF-8
+
+  # ===== 避免spring boot版本和swagger版本不一致报错 ===== #
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: "v1.0"
+  application-description: "springfox swagger 3.0 Demo"
+  try-host: "http://localhost:${server.port}"
+
+############### Sa-Token 配置 (文档: https://sa-token.cc) ##############
+#sa-token:
+#  # token 名称（同时也是 cookie 名称）
+#  token-name: satoken
+#  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+#  timeout: 604800
+#  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+#  active-timeout: -1
+#  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+#  is-concurrent: false
+#  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+#  is-share: true
+#  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+#  token-style: uuid
+#  # 是否输出操作日志
+#  is-log: true
+#
+## Forest环境配置
+#forest:
+#  backend: okhttp3             # 后端HTTP框架（默认为 okhttp3）
+#  max-connections: 1000        # 连接池最大连接数（默认为 500）
+#  max-route-connections: 500   # 每个路由的最大连接数（默认为 500）
+#  max-request-queue-size: 100  # [自v1.5.22版本起可用] 最大请求等待队列大小
+#  max-async-thread-size: 300   # [自v1.5.21版本起可用] 最大异步线程数
+#  max-async-queue-size: 16     # [自v1.5.22版本起可用] 最大异步线程池队列大小
+#  timeout: 3000                # [已不推荐使用] 请求超时时间，单位为毫秒（默认为 3000）
+#  connect-timeout: 3000        # 连接超时时间，单位为毫秒（默认为 timeout）
+#  read-timeout: 3000           # 数据读取超时时间，单位为毫秒（默认为 timeout）
+#  max-retry-count: 0           # 请求失败后重试次数（默认为 0 次不重试）
+#  ssl-protocol: TLS            # 单向验证的HTTPS的默认TLS协议（默认为 TLS）
+#  log-enabled: true            # 打开或关闭日志（默认为 true）
+#  log-request: true            # 打开/关闭Forest请求日志（默认为 true）
+#  log-response-status: true    # 打开/关闭Forest响应状态日志（默认为 true）
+#  log-response-content: true   # 打开/关闭Forest响应内容日志（默认为 false）
+#  async-mode: platform         # [自v1.5.27版本起可用] 异步模式（默认为 platform）

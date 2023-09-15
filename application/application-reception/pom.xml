@@ -22,7 +22,6 @@
         <dependency>
             <groupId>com.qxbase.blog.server.reception</groupId>
             <artifactId>user-server</artifactId>
-            <version>1.0</version>
         </dependency>
     </dependencies>
 
