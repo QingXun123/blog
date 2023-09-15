@@ -5,15 +5,15 @@
 <mapper namespace="com.qxbase.blog.server.essay.mapper.EssayInfoMapper">
 
     <resultMap id="BaseResultMap" type="com.qxbase.blog.data.entity.EssayInfo">
-        <id property="essayId" column="essay_id"/>
-        <result property="authorId" column="author_id"/>
-        <result property="subject" column="subject"/>
-        <result property="content" column="content"/>
-        <result property="readingQuantity" column="reading_quantity"/>
-        <result property="type" column="type"/>
-        <result property="releaseTime" column="release_time"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateTime" column="updateTime"/>
+        <id property="essayId" column="essay_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="subject" column="subject" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="readingQuantity" column="reading_quantity" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="releaseTime" column="release_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
 
     </resultMap>
 

@@ -1,12 +1,17 @@
 package com.qxbase.blog.data.entity;
 
 import cn.hutool.core.date.DateTime;
+import com.alibaba.fastjson.annotation.JSONType;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Data
 @ToString
@@ -16,9 +21,10 @@ public class EssayInfo implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "essay_id", type = IdType.AUTO)
     private Long essayId;
 
-    private Long authorId;
+    private Long userId;
 
     private String subject;
 
@@ -28,9 +34,9 @@ public class EssayInfo implements Serializable {
 
     private Integer type;
 
-    private DateTime releaseTime;
+    private Timestamp releaseTime;
 
-    private DateTime createTime;
+    private Timestamp createTime;
 
-    private DateTime updateTime;
+    private Timestamp updateTime;
 }
