@@ -6,10 +6,7 @@ import com.qxbase.blog.server.data.result.Result;
 import com.qxbase.blog.server.essay.service.IEssayInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -24,7 +21,25 @@ public class EssayInfoController {
     @ApiOperation("文章列表")
     @PostMapping("/page")
     public Result page(@RequestBody Page page) {
-
         return Result.rSuccess(essayInfoService.page(page));
     }
+
+    @ApiOperation("文章详情")
+    @GetMapping("/info")
+    public Result info(@RequestParam Long essayId) {
+        return Result.rSuccess(essayInfoService.getById(essayId));
+    }
+
+    @ApiOperation("获取精选文章列表")
+    @GetMapping("/getFeaturedEssayList")
+    public Result getFeaturedEssayList() {
+        return Result.rSuccess(essayInfoService.getEssayListByType(1));
+    }
+
+    @ApiOperation("获取置顶文章列表")
+    @GetMapping("/getTopEssayList")
+    public Result getTopEssayList() {
+        return Result.rSuccess(essayInfoService.getEssayListByType(2));
+    }
+
 }

@@ -20,6 +20,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.qxbase.blog.common</groupId>
+            <artifactId>common-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.qxbase.blog.data</groupId>
             <artifactId>data-essay</artifactId>
         </dependency>

@@ -21,7 +21,7 @@ public class EssayInfo implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "essay_id", type = IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private Long essayId;
 
     private Long userId;
