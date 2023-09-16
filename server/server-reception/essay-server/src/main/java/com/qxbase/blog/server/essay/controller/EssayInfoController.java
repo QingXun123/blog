@@ -18,10 +18,10 @@ public class EssayInfoController {
     @Resource
     private IEssayInfoService essayInfoService;
 
-    @ApiOperation("文章列表")
+    @ApiOperation("文章分页")
     @PostMapping("/page")
     public Result page(@RequestBody Page page) {
-        return Result.rSuccess(essayInfoService.page(page));
+        return Result.rSuccess(essayInfoService.pageOfAuthor(page));
     }
 
     @ApiOperation("文章详情")

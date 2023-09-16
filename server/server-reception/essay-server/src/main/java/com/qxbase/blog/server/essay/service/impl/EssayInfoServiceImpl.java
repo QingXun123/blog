@@ -1,18 +1,24 @@
 package com.qxbase.blog.server.essay.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qxbase.blog.common.exception.ServiceException;
 import com.qxbase.blog.data.entity.EssayInfo;
+import com.qxbase.blog.data.vo.EssayInfoOutPutVo;
 import com.qxbase.blog.server.essay.mapper.EssayInfoMapper;
 import com.qxbase.blog.server.essay.service.IEssayInfoService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo> implements IEssayInfoService {
 
+    @Resource
+    private EssayInfoMapper essayInfoMapper;
 
     @Override
     public List<EssayInfo> getEssayListByType(Integer type) {
@@ -21,5 +27,15 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
         }
         List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>().eq(EssayInfo::getType, type));
         return list;
+    }
+
+    @Override
+    public List<EssayInfoOutPutVo> pageOfAuthor(Page page) {
+        return essayInfoMapper.selectPage(page.getCurrent(), page.getSize(), new QueryWrapper<EssayInfo>());
+    }
+
+    @Override
+    public List<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper) {
+        return essayInfoMapper.selectPage(page.getCurrent(), page.getSize(), queryWrapper);
     }
 }
