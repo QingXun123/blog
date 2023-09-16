@@ -4,6 +4,7 @@ import cn.hutool.core.util.PageUtil;
 import com.alibaba.druid.sql.PagerUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qxbase.blog.data.entity.EssayInfo;
@@ -55,6 +56,13 @@ public class EssayInfoController {
     @GetMapping("/readEssay")
     public Result readEssay(@RequestParam Long essayId) {
         return Result.assertBool(essayInfoService.readEssay(essayId), "阅读成功", "阅读失败");
+    }
+
+    @ApiOperation("模糊查询文章")
+    @PostMapping("/getEssayListLikeSubject")
+    public Result getEssayListLikeSubject(@RequestBody Page page) {
+        return Result.rSuccess(essayInfoService.pageOfAuthor(page, new QueryWrapper<EssayInfo>()
+                .like("subject", page.getRecords().get(0))));
     }
 
 }
