@@ -2,6 +2,7 @@ package com.qxbase.blog.server.essay.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qxbase.blog.common.exception.ServiceException;
@@ -30,12 +31,12 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
     }
 
     @Override
-    public List<EssayInfoOutPutVo> pageOfAuthor(Page page) {
-        return essayInfoMapper.selectPage(page.getCurrent(), page.getSize(), new QueryWrapper<EssayInfo>());
+    public IPage<EssayInfoOutPutVo> pageOfAuthor(Page page) {
+        return essayInfoMapper.pageOfAuthor(page, new QueryWrapper<EssayInfo>());
     }
 
     @Override
-    public List<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper) {
-        return essayInfoMapper.selectPage(page.getCurrent(), page.getSize(), queryWrapper);
+    public IPage<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper) {
+        return essayInfoMapper.pageOfAuthor(page, queryWrapper);
     }
 }

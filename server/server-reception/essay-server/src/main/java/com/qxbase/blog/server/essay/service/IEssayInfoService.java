@@ -1,6 +1,7 @@
 package com.qxbase.blog.server.essay.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qxbase.blog.data.entity.EssayInfo;
@@ -12,7 +13,7 @@ public interface IEssayInfoService extends IService<EssayInfo> {
 
     List<EssayInfo> getEssayListByType(Integer type);
 
-    List<EssayInfoOutPutVo> pageOfAuthor(Page page);
-    List<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper);
+    IPage<EssayInfoOutPutVo> pageOfAuthor(Page page);
+    IPage<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper);
 
 }

@@ -18,23 +18,22 @@
 
     </resultMap>
 
-    <select id="selectPage" resultType="com.qxbase.blog.data.vo.EssayInfoOutPutVo">
+    <select id="pageOfAuthor" parameterType="com.baomidou.mybatisplus.core.metadata.IPage" resultType="com.qxbase.blog.data.vo.EssayInfoOutPutVo">
         select
-            tei.essay_id as essay_id,
-            tei.user_id as user_id,
-            tu.user_name as user_name,
+            tei.essay_id as essayId,
+            tei.user_id as userId,
+            tu.user_name as userName,
             tei.img as img,
             tei.subject as subject,
             tei.content as content,
-            tei.reading_quantity as reading_quantity,
+            tei.reading_quantity as readingQuantity,
             tei.type as type,
-            tei.release_time as release_time,
-            tei.create_time as create_time,
-            tei.update_time as update_time
+            tei.release_time as releaseTime,
+            tei.create_time as createTime,
+            tei.update_time as updateTime
         from t_essay_info tei
         left join t_user tu on tei.user_id = tu.user_id
             ${ew.customSqlSegment}
-        limit #{current}, #{size}
     </select>
 
 </mapper>
