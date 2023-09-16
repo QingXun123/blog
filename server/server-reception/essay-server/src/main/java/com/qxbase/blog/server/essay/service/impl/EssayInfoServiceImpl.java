@@ -27,15 +27,19 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
     @Resource
     private EssayInfoMapper essayInfoMapper;
 
+    public List<EssayInfo> getNewEssayList() {
+        List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>()
+                .gt(EssayInfo::getReleaseTime, this.getAfterOneMonthByNowTime())
+                .orderBy(true, false, EssayInfo::getReleaseTime));
+        return list;
+    }
+
     @Override
     public List<EssayInfo> getEssayListByType(Integer type) {
         if (type != 1 && type != 2) {
             throw new ServiceException(300, "不存在这个类型的文章");
         }
-        List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>()
-                .eq(EssayInfo::getType, type)
-                .gt(EssayInfo::getReleaseTime, this.getAfterOneMonthByNowTime())
-                .orderBy(true, false, EssayInfo::getReleaseTime));
+        List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>().eq(EssayInfo::getType, type));
         return list;
     }
 

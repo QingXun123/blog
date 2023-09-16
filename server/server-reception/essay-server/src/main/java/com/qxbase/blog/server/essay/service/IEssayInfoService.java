@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface IEssayInfoService extends IService<EssayInfo> {
 
+    List<EssayInfo> getNewEssayList();
+
     List<EssayInfo> getEssayListByType(Integer type);
 
     IPage<EssayInfoOutPutVo> pageOfAuthor(Page page);

@@ -42,7 +42,7 @@ public class EssayInfoController {
     @ApiOperation("获取最新文章列表")
     @GetMapping("/getNewEssayList")
     public Result getNewEssayList() {
-        return Result.rSuccess(essayInfoService.getEssayListByType(1));
+        return Result.rSuccess(essayInfoService.getNewEssayList());
     }
 
     @ApiOperation("获取置顶文章列表")
