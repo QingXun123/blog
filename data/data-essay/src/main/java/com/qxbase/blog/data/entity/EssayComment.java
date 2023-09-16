@@ -1,39 +1,28 @@
 package com.qxbase.blog.data.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Data
 @ToString
-@TableName("t_essay_info")
-public class EssayInfo implements Serializable {
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+@TableName("t_essay_comment")
+public class EssayComment {
 
     @TableId(type = IdType.AUTO)
-    private Long essayId;
+    private Long commentId;
 
     private Long userId;
 
-    private String img;
-
-    private String subject;
+    private Long essayId;
 
     private String content;
 
-    private Integer readingQuantity;
-
-    private Integer type;
-
-    private Timestamp releaseTime;
+    private Integer like;
 
     private Timestamp createTime;
 
