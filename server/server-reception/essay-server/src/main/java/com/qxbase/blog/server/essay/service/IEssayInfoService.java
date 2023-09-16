@@ -16,4 +16,5 @@ public interface IEssayInfoService extends IService<EssayInfo> {
     IPage<EssayInfoOutPutVo> pageOfAuthor(Page page);
     IPage<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper);
 
+    boolean readEssay(Long essayId);
 }

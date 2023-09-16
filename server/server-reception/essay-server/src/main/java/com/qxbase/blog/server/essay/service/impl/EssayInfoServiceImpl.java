@@ -39,4 +39,14 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
     public IPage<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper) {
         return essayInfoMapper.pageOfAuthor(page, queryWrapper);
     }
+
+    @Override
+    public boolean readEssay(Long essayId) {
+        EssayInfo essayInfo = this.getById(essayId);
+        if (essayInfo == null) {
+            throw new ServiceException(300, "不存在这个文章");
+        }
+        essayInfo.setReadingQuantity(essayInfo.getReadingQuantity() + 1);
+        return this.updateById(essayInfo);
+    }
 }

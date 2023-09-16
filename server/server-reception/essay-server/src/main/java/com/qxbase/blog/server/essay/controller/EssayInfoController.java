@@ -51,4 +51,10 @@ public class EssayInfoController {
         return Result.rSuccess(essayInfoService.getEssayListByType(2));
     }
 
+    @ApiOperation("阅读文章")
+    @GetMapping("/readEssay")
+    public Result readEssay(@RequestParam Long essayId) {
+        return Result.assertBool(essayInfoService.readEssay(essayId), "阅读成功", "阅读失败");
+    }
+
 }
