@@ -13,6 +13,12 @@ import com.qxbase.blog.server.essay.service.IEssayInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -26,7 +32,10 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
         if (type != 1 && type != 2) {
             throw new ServiceException(300, "不存在这个类型的文章");
         }
-        List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>().eq(EssayInfo::getType, type));
+        List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>()
+                .eq(EssayInfo::getType, type)
+                .gt(EssayInfo::getReleaseTime, this.getAfterOneMonthByNowTime())
+                .orderBy(true, false, EssayInfo::getReleaseTime));
         return list;
     }
 
@@ -48,5 +57,19 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
         }
         essayInfo.setReadingQuantity(essayInfo.getReadingQuantity() + 1);
         return this.updateById(essayInfo);
+    }
+
+    private String getAfterOneMonthByNowTime() {
+        // 获取当前时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 计算前一个月
+        LocalDateTime oneMonthAgo = now.minus(Period.ofMonths(3));
+
+        // 格式化输出
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedOneMonthAgo = oneMonthAgo.format(formatter);
+
+        return formattedOneMonthAgo;
     }
 }

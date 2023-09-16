@@ -39,9 +39,9 @@ public class EssayInfoController {
         return Result.rSuccess(essayInfoService.getById(essayId));
     }
 
-    @ApiOperation("获取精选文章列表")
-    @GetMapping("/getFeaturedEssayList")
-    public Result getFeaturedEssayList() {
+    @ApiOperation("获取最新文章列表")
+    @GetMapping("/getNewEssayList")
+    public Result getNewEssayList() {
         return Result.rSuccess(essayInfoService.getEssayListByType(1));
     }
 
