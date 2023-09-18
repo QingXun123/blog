@@ -39,7 +39,9 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
         if (type != 1 && type != 2) {
             throw new ServiceException(300, "不存在这个类型的文章");
         }
-        List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>().eq(EssayInfo::getType, type));
+        List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>()
+                .eq(EssayInfo::getType, type)
+                .orderBy(true, false, EssayInfo::getReleaseTime));
         return list;
     }
 
