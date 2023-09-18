@@ -118,6 +118,11 @@
                 <artifactId>data-essay</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.data</groupId>
+                <artifactId>data-user</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- server 模块 -->
             <dependency>

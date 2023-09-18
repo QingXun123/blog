@@ -21,7 +21,11 @@
     <dependencies>
         <dependency>
             <groupId>com.qxbase.blog.common</groupId>
-            <artifactId>common-framework</artifactId>
+            <artifactId>common-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.qxbase.blog.data</groupId>
+            <artifactId>data-user</artifactId>
         </dependency>
     </dependencies>
 </project>

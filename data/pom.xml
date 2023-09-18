@@ -12,6 +12,7 @@
     <modules>
         <module>data-web</module>
         <module>data-essay</module>
+        <module>data-user</module>
     </modules>
 
     <groupId>com.qxbase.blog.data</groupId>

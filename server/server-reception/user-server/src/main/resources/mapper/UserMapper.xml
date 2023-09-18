@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qxbase.blog.server.user.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.qxbase.blog.data.entity.User">
+        <id property="userId" column="user_id"/>
+        <result property="phone" column="phone"/>
+        <result property="userName" column="user_name"/>
+        <result property="email" column="email"/>
+        <result property="sex" column="sex"/>
+        <result property="password" column="password"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+
+    </resultMap>
+
+</mapper>
