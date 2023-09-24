@@ -10,12 +10,12 @@ import java.util.HashMap;
  */
 public class SubmitBufferSingleton {
 
-    private static HashMap<String, LocalDateTime> hashMap = new HashMap<>();
+    private static HashMap<String, Long> hashMap = new HashMap<>();
 
     private SubmitBufferSingleton() {
     }
 
-    public static HashMap<String, LocalDateTime> getInstance() {
+    public static HashMap<String, Long> getInstance() {
         return hashMap;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -37,20 +38,21 @@ public class NoRepeatSubmitAop {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         Object[] args = pjp.getArgs();  //获取方法参数
-        String key = request.getLocalAddr() + " ：" + request.getServletPath();
+        String key = getIp(request) + " ：" + request.getServletPath();
         Long time = nrs.time();
         Object o = pjp.proceed();
-        HashMap<String, LocalDateTime> hashMap = SubmitBufferSingleton.getInstance();
+        HashMap<String, Long> hashMap = SubmitBufferSingleton.getInstance();
+        long nowTime = Instant.now().toEpochMilli();
         if (!hashMap.containsKey(key)) {
-            hashMap.put(key, LocalDateTime.now());
+            hashMap.put(key, nowTime + time);
             return o;
         } else {
-            if (Duration.between(hashMap.get(key), LocalDateTime.now()).toMillis() > time) {
-                hashMap.put(key, LocalDateTime.now());
+            if (nowTime > hashMap.get(key)) {
+                hashMap.put(key, nowTime + time);
                 return o;
             } else {
                 log.error("操作过于频繁 {}", key);
-                return Result.rError("操作过于频繁");
+                return "操作过于频繁";
             }
         }
 
@@ -65,6 +67,27 @@ public class NoRepeatSubmitAop {
 //            return "请勿重复提交或者操作过于频繁！";
 //        }
 
+    }
+
+    // 获取调用者ip
+    private static String getIp(HttpServletRequest request){
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 
 }
