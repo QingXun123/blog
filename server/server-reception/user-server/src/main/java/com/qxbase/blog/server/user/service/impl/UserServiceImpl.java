@@ -72,4 +72,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .eq(User::getPassword, password)
                 .one() != null;
     }
+
+    @Override
+    public boolean existsById(Long userId) {
+        User byId = this.getById(userId);
+        return byId != null;
+    }
 }

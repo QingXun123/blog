@@ -3,15 +3,18 @@ package com.qxbase.blog.data.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.qxbase.blog.server.data.entity.BaseEntity;
 import lombok.Data;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.sql.Timestamp;
 
 @Data
 @ToString
 @TableName("t_essay_comment")
-public class EssayComment {
+@Accessors(chain = true)
+public class EssayComment extends BaseEntity {
 
     @TableId(type = IdType.AUTO)
     private Long commentId;
@@ -22,9 +25,5 @@ public class EssayComment {
 
     private String content;
 
-    private Integer like;
-
-    private Timestamp createTime;
-
-    private Timestamp updateTime;
+    private Integer like = 0;
 }

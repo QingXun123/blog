@@ -19,11 +19,9 @@ import java.sql.Timestamp;
 @Accessors(chain = true)
 public class BaseEntity implements Serializable {
 
-	@TableId(type = IdType.AUTO)
-	private Long id;
 	@TableField(fill = FieldFill.INSERT)
-	private Timestamp createtime;
+	private Timestamp createTime;
 	@TableField(fill = FieldFill.UPDATE)
-	private Timestamp updatetime;
+	private Timestamp updateTime;
 	
 }

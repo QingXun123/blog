@@ -2,15 +2,39 @@ package com.qxbase.blog.server.essay.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qxbase.blog.common.exception.ServiceException;
 import com.qxbase.blog.data.entity.EssayComment;
 import com.qxbase.blog.server.essay.mapper.EssayCommentMapper;
 import com.qxbase.blog.server.essay.service.IEssayCommentService;
+import com.qxbase.blog.server.essay.service.IEssayInfoService;
+import com.qxbase.blog.server.user.service.IUserService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, EssayComment> implements IEssayCommentService {
+
+    @Resource
+    private IUserService userService;
+
+    @Resource
+    private IEssayInfoService essayInfoService;
+
+    @Resource
+    private IEssayCommentService essayCommentService;
+
+    @Override
+    public boolean addComment(EssayComment essayComment) {
+        if (!essayInfoService.existsById(essayComment.getEssayId())) {
+            throw new ServiceException(300, "不存在该文章");
+        }
+        if (!userService.existsById(essayComment.getUserId())) {
+            throw new ServiceException(300, "不存在该用户");
+        }
+        return essayCommentService.save(essayComment);
+    }
 
     @Override
     public List<EssayComment> getCommentListByEssayId(Long essayId) {

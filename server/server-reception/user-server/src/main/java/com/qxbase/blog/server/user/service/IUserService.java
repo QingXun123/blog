@@ -16,4 +16,6 @@ public interface IUserService extends IService<User> {
     User getOneByEmail(String email);
 
     boolean checkUserByEmail(String email, String password);
+
+    boolean existsById(Long userId);
 }

@@ -65,6 +65,12 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
         return this.updateById(essayInfo);
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        EssayInfo byId = this.getById(id);
+        return byId != null;
+    }
+
     private String getAfterOneMonthByNowTime() {
         // 获取当前时间
         LocalDateTime now = LocalDateTime.now();
