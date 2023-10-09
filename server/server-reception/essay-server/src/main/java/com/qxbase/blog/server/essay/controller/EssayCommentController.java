@@ -1,5 +1,6 @@
 package com.qxbase.blog.server.essay.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qxbase.blog.common.utils.BeanUtils;
@@ -23,6 +24,7 @@ public class EssayCommentController {
 
     @ApiOperation("发布评论")
     @PostMapping("/addComment")
+    @SaCheckLogin
     public Result addComment(@RequestBody EssayCommentInPutVo essayCommentInPutVo) {
         return Result.assertBool(
                 essayCommentService.addComment(
