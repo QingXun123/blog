@@ -14,4 +14,6 @@ public interface IUserService extends IService<User> {
     User getOneByPhone(String phone);
 
     User getOneByEmail(String email);
+
+    boolean checkUserByEmail(String email, String password);
 }

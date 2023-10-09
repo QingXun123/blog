@@ -46,4 +46,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .eq(User::getEmail, email)
                 .one();
     }
+
+    @Override
+    public boolean checkUserByEmail(String email, String password) {
+        return lambdaQuery()
+                .eq(User::getEmail, email)
+                .eq(User::getPassword, password)
+                .one() != null;
+    }
 }

@@ -19,9 +19,9 @@ import java.util.Map;
  * @version 1.0.0
  * @since 2023-08-11
  */
-public class QRCodeUtil {
+public class QRCodeUtils {
 
-    private QRCodeUtil() {}
+    private QRCodeUtils() {}
 
     public static String generateQRCode(String text) {
         int width = 250;
