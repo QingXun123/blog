@@ -51,4 +51,11 @@ public class UserController {
                         User.class,
                         userRegisterInPutVo)));
     }
+
+    @ApiOperation("注销")
+    @GetMapping("/logout")
+    public Result logout() {
+        StpUtil.logout(StpUtil.getLoginId());
+        return this.isLogin();
+    }
 }
