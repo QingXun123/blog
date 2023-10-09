@@ -7,14 +7,11 @@ import com.qxbase.blog.server.user.mapper.UserMapper;
 import com.qxbase.blog.server.user.service.IUserService;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
+import static com.qxbase.blog.common.constant.PatternConstant.EMAIL_NUMBER_PATTERN;
+import static com.qxbase.blog.common.constant.PatternConstant.PHONE_NUMBER_PATTERN;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-
-    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^1[3-9]\\d{9}$");
-
-    private static final Pattern EMAIL_NUMBER_PATTERN = Pattern.compile("^[\\w\\.-]+@[a-zA-Z\\d\\.-]+\\.[a-zA-Z]{2,}$");
 
     @Override
     public User login(String email, String password) {
