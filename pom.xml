@@ -138,6 +138,15 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>1.36.0</version>
+        </dependency>
+    </dependencies>
+
     <!-- 管理插件 -->
     <build>
         <!-- 配置文件的管理 -->
