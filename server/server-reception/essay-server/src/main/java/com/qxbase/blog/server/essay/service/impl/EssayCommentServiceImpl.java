@@ -1,5 +1,6 @@
 package com.qxbase.blog.server.essay.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qxbase.blog.common.exception.ServiceException;
@@ -27,10 +28,11 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
 
     @Override
     public boolean addComment(EssayComment essayComment) {
+        long userId = StpUtil.getLoginIdAsLong();
         if (!essayInfoService.existsById(essayComment.getEssayId())) {
             throw new ServiceException(300, "不存在该文章");
         }
-        if (!userService.existsById(essayComment.getUserId())) {
+        if (!userService.existsById(userId)) {
             throw new ServiceException(300, "不存在该用户");
         }
         return essayCommentService.save(essayComment);

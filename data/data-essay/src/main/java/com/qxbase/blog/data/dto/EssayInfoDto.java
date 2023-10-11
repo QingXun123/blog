@@ -1,9 +1,8 @@
-package com.qxbase.blog.data.vo;
+package com.qxbase.blog.data.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
 
@@ -11,7 +10,7 @@ import java.sql.Timestamp;
 
 @Data
 @ToString
-public class EssayInfoOutPutVo {
+public class EssayInfoDto {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

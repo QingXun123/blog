@@ -1,11 +1,9 @@
 package com.qxbase.blog.server.essay.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qxbase.blog.common.utils.BeanUtils;
 import com.qxbase.blog.data.entity.EssayComment;
-import com.qxbase.blog.data.vo.EssayCommentInPutVo;
+import com.qxbase.blog.data.dto.EssayCommentDto;
 import com.qxbase.blog.server.data.result.Result;
 import com.qxbase.blog.server.essay.service.IEssayCommentService;
 import io.swagger.annotations.Api;
@@ -25,7 +23,7 @@ public class EssayCommentController {
     @ApiOperation("发布评论")
     @PostMapping("/addComment")
     @SaCheckLogin
-    public Result addComment(@RequestBody EssayCommentInPutVo essayCommentInPutVo) {
+    public Result addComment(@RequestBody EssayCommentDto essayCommentInPutVo) {
         return Result.assertBool(
                 essayCommentService.addComment(
                         BeanUtils.copyInstance(EssayComment.class, essayCommentInPutVo)),

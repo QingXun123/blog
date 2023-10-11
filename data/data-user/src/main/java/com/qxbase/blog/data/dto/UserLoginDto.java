@@ -1,11 +1,11 @@
-package com.qxbase.blog.data.vo;
+package com.qxbase.blog.data.dto;
 
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @ToString
-public class UserLoginInPutVo {
+public class UserLoginDto {
     private String email;
 
     private String password;

@@ -1,19 +1,18 @@
 package com.qxbase.blog.server.user.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.util.StrUtil;
 import com.qxbase.blog.common.utils.BeanUtils;
 import com.qxbase.blog.data.entity.User;
-import com.qxbase.blog.data.vo.UserLoginInPutVo;
-import com.qxbase.blog.data.vo.UserRegisterInPutVo;
+import com.qxbase.blog.data.dto.UserLoginDto;
+import com.qxbase.blog.data.dto.UserRegisterDto;
 import com.qxbase.blog.server.data.result.Result;
 import com.qxbase.blog.server.user.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -26,9 +25,16 @@ public class UserController {
     @Resource
     private IUserService userService;
 
+    @ApiOperation("用户详情")
+    @GetMapping("/info")
+    @SaCheckLogin
+    public Result info() {
+        return Result.rSuccess(userService.info());
+    }
+
     @ApiOperation("登录")
     @PostMapping("/doLogin")
-    public Result doLogin(@RequestBody UserLoginInPutVo userLoginInPutVo) {
+    public Result doLogin(@RequestBody UserLoginDto userLoginInPutVo) {
         User user = userService.login(
                 userLoginInPutVo.getEmail(), userLoginInPutVo.getPassword());
         StpUtil.login(user.getUserId());
@@ -45,7 +51,7 @@ public class UserController {
 
     @ApiOperation("注册")
     @PostMapping("/register")
-    public Result register(@RequestBody UserRegisterInPutVo userRegisterInPutVo) {
+    public Result register(@RequestBody UserRegisterDto userRegisterInPutVo) {
         return Result.rSuccess(userService.register(
                 BeanUtils.copyInstance(
                         User.class,

@@ -2,8 +2,11 @@ package com.qxbase.blog.server.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qxbase.blog.data.entity.User;
+import com.qxbase.blog.data.vo.UserInfoVo;
 
 public interface IUserService extends IService<User> {
+
+    UserInfoVo info();
 
     User login(String email, String password);
 

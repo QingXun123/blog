@@ -20,7 +20,7 @@
 
     <select id="pageOfAuthor"
             parameterType="com.baomidou.mybatisplus.core.metadata.IPage"
-            resultType="com.qxbase.blog.data.vo.EssayInfoOutPutVo">
+            resultType="com.qxbase.blog.data.dto.EssayInfoDto">
         select
             tei.essay_id as essayId,
             tei.user_id as userId,

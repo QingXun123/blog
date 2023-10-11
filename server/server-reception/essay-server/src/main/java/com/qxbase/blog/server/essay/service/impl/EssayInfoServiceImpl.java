@@ -7,18 +7,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qxbase.blog.common.exception.ServiceException;
 import com.qxbase.blog.data.entity.EssayInfo;
-import com.qxbase.blog.data.vo.EssayInfoOutPutVo;
+import com.qxbase.blog.data.dto.EssayInfoDto;
 import com.qxbase.blog.server.essay.mapper.EssayInfoMapper;
 import com.qxbase.blog.server.essay.service.IEssayInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -46,12 +43,12 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
     }
 
     @Override
-    public IPage<EssayInfoOutPutVo> pageOfAuthor(Page page) {
+    public IPage<EssayInfoDto> pageOfAuthor(Page page) {
         return essayInfoMapper.pageOfAuthor(page, new QueryWrapper<EssayInfo>());
     }
 
     @Override
-    public IPage<EssayInfoOutPutVo> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper) {
+    public IPage<EssayInfoDto> pageOfAuthor(Page page, QueryWrapper<EssayInfo> queryWrapper) {
         return essayInfoMapper.pageOfAuthor(page, queryWrapper);
     }
 
