@@ -1,5 +1,6 @@
 package com.qxbase.blog.server.essay.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -10,6 +11,7 @@ import com.qxbase.blog.data.entity.EssayInfo;
 import com.qxbase.blog.data.dto.EssayInfoDto;
 import com.qxbase.blog.server.essay.mapper.EssayInfoMapper;
 import com.qxbase.blog.server.essay.service.IEssayInfoService;
+import com.qxbase.blog.server.user.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +25,9 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
 
     @Resource
     private EssayInfoMapper essayInfoMapper;
+
+    @Resource
+    private IUserService userService;
 
     public List<EssayInfo> getNewEssayList() {
         List<EssayInfo> list = this.list(new LambdaQueryWrapper<EssayInfo>()
@@ -68,11 +73,26 @@ public class EssayInfoServiceImpl extends ServiceImpl<EssayInfoMapper, EssayInfo
         return byId != null;
     }
 
+    @Override
+    public boolean addEssay(EssayInfo essayInfo) {
+        long userId = StpUtil.getLoginIdAsLong();
+        if (!userService.existsById(userId)) {
+            throw new ServiceException(300, "不存在该用户");
+        }
+
+        essayInfo.setUserId(userId);
+        if (this.existsById(essayInfo.getEssayId())) {
+            throw new ServiceException(300, "已存在该文章");
+        }
+
+        return this.save(essayInfo);
+    }
+
     private String getAfterOneMonthByNowTime() {
         // 获取当前时间
         LocalDateTime now = LocalDateTime.now();
 
-        // 计算前一个月
+        // 计算前三个月
         LocalDateTime oneMonthAgo = now.minus(Period.ofMonths(3));
 
         // 格式化输出

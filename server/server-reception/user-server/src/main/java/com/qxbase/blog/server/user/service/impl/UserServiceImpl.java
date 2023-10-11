@@ -44,15 +44,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public boolean save(User user) {
-        User oneByEmail = this.getOneByEmail(user.getEmail());
-        if (oneByEmail != null) {
-            throw new ServiceException(300, "已存在该用户");
-        }
-        return super.save(user);
-    }
-
-    @Override
     public User getOneByPhone(String phone) {
         if (!PHONE_NUMBER_PATTERN.matcher(phone).matches()) {
             throw new ServiceException(300, "手机号格式错误");

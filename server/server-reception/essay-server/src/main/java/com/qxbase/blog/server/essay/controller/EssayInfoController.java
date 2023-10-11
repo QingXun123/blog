@@ -1,7 +1,10 @@
 package com.qxbase.blog.server.essay.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.qxbase.blog.common.utils.BeanUtils;
+import com.qxbase.blog.data.dto.EssayAddDto;
 import com.qxbase.blog.data.entity.EssayInfo;
 import com.qxbase.blog.server.data.result.Result;
 import com.qxbase.blog.server.essay.service.IEssayInfoService;
@@ -29,6 +32,16 @@ public class EssayInfoController {
     @GetMapping("/info")
     public Result info(@RequestParam Long essayId) {
         return Result.rSuccess(essayInfoService.getById(essayId));
+    }
+
+    @ApiOperation("添加文章")
+    @PostMapping("/addEssay")
+    @SaCheckLogin
+    public Result addEssay(@RequestBody EssayAddDto essayAddDto) {
+        return Result.assertBool(
+                essayInfoService.addEssay(
+                        BeanUtils.copyInstance(EssayInfo.class, essayAddDto)),
+                "添加成功", "添加失败");
     }
 
     @ApiOperation("获取最新文章列表")

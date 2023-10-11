@@ -32,9 +32,9 @@ public class EssayInfo extends BaseEntity implements Serializable {
 
     private String content;
 
-    private Integer readingQuantity;
+    private Integer readingQuantity = 0;
 
-    private Integer type;
+    private Integer type = 0;
 
     private Timestamp releaseTime;
 }
