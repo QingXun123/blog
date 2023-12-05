@@ -22,6 +22,10 @@
             <groupId>com.qxbase.blog.common</groupId>
             <artifactId>common-framework</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.qxbase.blog.common</groupId>
+            <artifactId>common-web</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

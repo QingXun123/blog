@@ -1,5 +1,6 @@
 package com.qxbase.blog.data.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,7 +14,6 @@ import java.sql.Timestamp;
 @Data
 @ToString
 @TableName("t_essay_banner")
-@Accessors(chain = true)
 public class EssayBanner extends BaseEntity {
 
     @TableId(type = IdType.AUTO)
