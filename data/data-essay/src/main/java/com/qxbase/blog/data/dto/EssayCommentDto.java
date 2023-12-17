@@ -10,4 +10,6 @@ public class EssayCommentDto {
     private Long essayId;
 
     private String content;
+
+    private Long userId;
 }

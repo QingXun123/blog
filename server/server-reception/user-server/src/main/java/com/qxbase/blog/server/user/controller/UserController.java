@@ -3,6 +3,7 @@ package com.qxbase.blog.server.user.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import com.qxbase.blog.common.utils.BeanUtils;
 import com.qxbase.blog.data.entity.User;
 import com.qxbase.blog.data.dto.UserLoginDto;
@@ -34,11 +35,11 @@ public class UserController {
 
     @ApiOperation("登录")
     @PostMapping("/doLogin")
-    public Result doLogin(@RequestBody UserLoginDto userLoginInPutVo) {
+    public SaResult doLogin(@RequestBody UserLoginDto userLoginInPutVo) {
         User user = userService.login(
                 userLoginInPutVo.getEmail(), userLoginInPutVo.getPassword());
         StpUtil.login(user.getUserId());
-        return Result.rSuccess(user);
+        return SaResult.ok("登录成功").setData(user);
     }
 
     @ApiOperation("是否登录")

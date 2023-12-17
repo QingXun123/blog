@@ -21,9 +21,13 @@ public class EssayComment extends BaseEntity {
 
     private Long userId;
 
+    private Long replyUserId;
+
     private Long essayId;
 
     private String content;
+
+    private Integer type = 0;
 
     private Integer like = 0;
 }

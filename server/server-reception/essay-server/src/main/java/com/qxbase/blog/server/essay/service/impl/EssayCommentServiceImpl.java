@@ -35,6 +35,9 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
         if (!userService.existsById(userId)) {
             throw new ServiceException(300, "不存在该用户");
         }
+        if (essayComment.getContent() == null || essayComment.getContent().isEmpty()) {
+            throw new ServiceException(300, "没有填写评论内容");
+        }
         return essayCommentService.save(essayComment);
     }
 
