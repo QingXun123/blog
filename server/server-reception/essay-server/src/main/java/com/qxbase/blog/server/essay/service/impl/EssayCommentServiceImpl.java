@@ -2,9 +2,13 @@ package com.qxbase.blog.server.essay.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qxbase.blog.common.exception.ServiceException;
 import com.qxbase.blog.data.entity.EssayComment;
+import com.qxbase.blog.data.vo.EssayCommentVo;
 import com.qxbase.blog.server.essay.mapper.EssayCommentMapper;
 import com.qxbase.blog.server.essay.service.IEssayCommentService;
 import com.qxbase.blog.server.essay.service.IEssayInfoService;
@@ -26,6 +30,9 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
     @Resource
     private IEssayCommentService essayCommentService;
 
+    @Resource
+    private EssayCommentMapper essayCommentMapper;
+
     @Override
     public boolean addComment(EssayComment essayComment) {
         long userId = StpUtil.getLoginIdAsLong();
@@ -42,12 +49,36 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
     }
 
     @Override
-    public List<EssayComment> getCommentListByEssayId(Long essayId) {
-        return this.list(new LambdaQueryWrapper<EssayComment>().eq(EssayComment::getEssayId, essayId));
+    public List<EssayCommentVo> getCommentListByEssayId(Long essayId) {
+
+        return essayCommentMapper.getCommentVoListByEssayId(essayId);
     }
 
     @Override
     public Long countByEssayId(Long essayId) {
         return this.count(new LambdaQueryWrapper<EssayComment>().eq(EssayComment::getEssayId, essayId));
     }
+
+    @Override
+    public IPage<EssayCommentVo> getCommentPage(Page page) {
+        return essayCommentMapper.getCommentPage(page, new QueryWrapper<>());
+    }
+
+    @Override
+    public IPage<EssayCommentVo> getCommentPage(Page page, QueryWrapper<EssayComment> queryWrapper) {
+        return essayCommentMapper.getCommentPage(page, queryWrapper);
+
+    }
+
+    @Override
+    public boolean likeClick(Long commentId) {
+        EssayComment byId = this.getById(commentId);
+        if (byId == null) {
+            throw new ServiceException(300, "不存在该评论");
+        }
+        byId.setLike(byId.getLike() + 1);
+        return this.updateById(byId);
+    }
+
+
 }

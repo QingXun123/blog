@@ -12,4 +12,6 @@ public class EssayCommentDto {
     private String content;
 
     private Long userId;
+
+    private Long replyCommentId;
 }

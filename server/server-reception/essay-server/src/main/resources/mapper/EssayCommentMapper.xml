@@ -7,12 +7,35 @@
     <resultMap id="BaseResultMap" type="com.qxbase.blog.data.entity.EssayComment">
         <id property="commentId" column="comment_id"/>
         <result property="userId" column="user_id"/>
+        <result property="replyCommentId" column="reply_comment_id"/>
         <result property="essayId" column="essay_id"/>
         <result property="content" column="content"/>
+        <result property="type" column="type"/>
         <result property="like" column="like"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
 
     </resultMap>
+
+    <select id="getCommentPage"
+            parameterType="com.baomidou.mybatisplus.core.metadata.IPage"
+            resultType="com.qxbase.blog.data.vo.EssayCommentVo">
+        select
+            tec.comment_id as commentId,
+            tec.user_id as userId,
+            tec.reply_comment_id as replyCommentId,
+            tec.essay_id as essayId,
+            tec.content as content,
+            tec.type as type,
+            tec.like as `like`,
+            tec.create_time as createTime,
+            tec.update_time as updateTime,
+
+            tu.user_name as userName,
+            tu.img as img
+        from t_essay_comment tec
+        left join t_user tu on tec.user_id = tu.user_id
+            ${ew.customSqlSegment}
+    </select>
 
 </mapper>
