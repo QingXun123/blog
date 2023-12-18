@@ -22,6 +22,7 @@ public interface EssayCommentMapper extends BaseMapper<EssayComment> {
     @Select("select\n" +
             "            tec.comment_id as commentId,\n" +
             "            tec.user_id as userId,\n" +
+            "            tec.reply_super_comment_id as replySuperCommentId,\n" +
             "            tec.reply_comment_id as replyCommentId,\n" +
             "            tec.essay_id as essayId,\n" +
             "            tec.content as content,\n" +

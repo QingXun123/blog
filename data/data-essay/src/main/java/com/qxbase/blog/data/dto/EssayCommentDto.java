@@ -14,4 +14,6 @@ public class EssayCommentDto {
     private Long userId;
 
     private Long replyCommentId;
+
+    private Long replySuperCommentId;
 }

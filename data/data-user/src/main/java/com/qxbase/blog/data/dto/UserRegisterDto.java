@@ -16,4 +16,6 @@ public class UserRegisterDto {
     private Integer sex;
 
     private String password;
+
+    private String identifyCode = "";
 }

@@ -34,7 +34,7 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
     private EssayCommentMapper essayCommentMapper;
 
     @Override
-    public boolean addComment(EssayComment essayComment) {
+    public EssayComment addComment(EssayComment essayComment) {
         long userId = StpUtil.getLoginIdAsLong();
         if (!essayInfoService.existsById(essayComment.getEssayId())) {
             throw new ServiceException(300, "不存在该文章");
@@ -45,7 +45,10 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
         if (essayComment.getContent() == null || essayComment.getContent().isEmpty()) {
             throw new ServiceException(300, "没有填写评论内容");
         }
-        return essayCommentService.save(essayComment);
+        if (!essayCommentService.save(essayComment)) {
+            throw new ServiceException(300, "发布失败");
+        }
+        return essayComment;
     }
 
     @Override

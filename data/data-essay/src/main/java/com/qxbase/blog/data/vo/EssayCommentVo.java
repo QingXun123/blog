@@ -24,6 +24,8 @@ public class EssayCommentVo {
 
     private Long replyCommentId;
 
+    private Long replySuperCommentId;
+
     private Long essayId;
 
     private String content;

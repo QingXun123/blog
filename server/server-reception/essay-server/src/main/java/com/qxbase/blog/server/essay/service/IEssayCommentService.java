@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface IEssayCommentService extends IService<EssayComment> {
 
-    boolean addComment(EssayComment essayComment);
+    EssayComment addComment(EssayComment essayComment);
 
     List<EssayCommentVo>  getCommentListByEssayId(Long essayId);
 
