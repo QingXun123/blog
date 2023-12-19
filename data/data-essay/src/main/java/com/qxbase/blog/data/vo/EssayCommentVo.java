@@ -36,9 +36,7 @@ public class EssayCommentVo {
 
     private Long likeId;
 
-    @TableField(fill = FieldFill.INSERT)
     private Timestamp createTime;
 
-    @TableField(fill = FieldFill.UPDATE)
     private Timestamp updateTime;
 }

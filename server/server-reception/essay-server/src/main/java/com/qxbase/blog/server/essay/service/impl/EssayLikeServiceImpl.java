@@ -44,6 +44,7 @@ public class EssayLikeServiceImpl extends ServiceImpl<EssayLikeMapper, EssayLike
     }
 
     @Override
+    @Transactional
     public boolean dislike(EssayLike essayLike) {
         if (!userService.existsById(essayLike.getUserId())) {
             throw new ServiceException(300, "不存在该用户");

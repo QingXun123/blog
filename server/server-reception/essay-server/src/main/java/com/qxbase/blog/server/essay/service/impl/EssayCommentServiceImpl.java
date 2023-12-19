@@ -73,7 +73,6 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
 
     @Override
     public IPage<EssayCommentVo> getCommentPageByUserId(Page page, QueryWrapper<EssayComment> queryWrapper) {
-        queryWrapper.or().isNull("tecl.like_id");
         return essayCommentMapper.getCommentPageByUserId(page, queryWrapper);
     }
 

@@ -28,14 +28,12 @@
                tec.essay_id               as essayId,
                tec.content                as content,
                tec.type                   as type,
-               tec.like                   as `like`,
+               tec.`like`                   as "like",
                tec.create_time            as createTime,
                tec.update_time            as updateTime,
 
                tu.user_name               as userName,
-               tu.img                     as img,
-
-               tecl.like_id               as likeId
+               tu.img                     as img
         from t_essay_comment tec
                  left join t_user tu on tec.user_id = tu.user_id
             ${ew.customSqlSegment}
@@ -51,7 +49,7 @@
                tec.essay_id               as essayId,
                tec.content                as content,
                tec.type                   as type,
-               tec.like                   as `like`,
+               tec.`like`                   as "like",
                tec.create_time            as createTime,
                tec.update_time            as updateTime,
 
