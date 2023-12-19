@@ -18,26 +18,8 @@ import java.util.List;
 @Mapper
 public interface EssayCommentMapper extends BaseMapper<EssayComment> {
 
-
-    @Select("select\n" +
-            "            tec.comment_id as commentId,\n" +
-            "            tec.user_id as userId,\n" +
-            "            tec.reply_super_comment_id as replySuperCommentId,\n" +
-            "            tec.reply_comment_id as replyCommentId,\n" +
-            "            tec.essay_id as essayId,\n" +
-            "            tec.content as content,\n" +
-            "            tec.type as type,\n" +
-            "            tec.like as `like`,\n" +
-            "            tec.create_time as createTime,\n" +
-            "            tec.update_time as updateTime,\n" +
-            "\n" +
-            "            tu.user_name as userName\n" +
-            "        from t_essay_comment tec\n" +
-            "        left join t_user tu on tec.user_id = tu.user_id\n" +
-            "        where\n" +
-            "        tec.essay_id = #{essayId}")
-    List<EssayCommentVo> getCommentVoListByEssayId(@Param("essayId") Long essayId);
-
     IPage<EssayCommentVo> getCommentPage(Page<EssayCommentVo> page, @Param(Constants.WRAPPER) QueryWrapper<EssayComment> queryWrapper);
+
+    IPage<EssayCommentVo> getCommentPageByUserId(Page<EssayCommentVo> page, @Param(Constants.WRAPPER) QueryWrapper<EssayComment> queryWrapper);
 
 }

@@ -16,7 +16,6 @@ import com.qxbase.blog.server.user.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, EssayComment> implements IEssayCommentService {
@@ -52,12 +51,6 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
     }
 
     @Override
-    public List<EssayCommentVo> getCommentListByEssayId(Long essayId) {
-
-        return essayCommentMapper.getCommentVoListByEssayId(essayId);
-    }
-
-    @Override
     public Long countByEssayId(Long essayId) {
         return this.count(new LambdaQueryWrapper<EssayComment>().eq(EssayComment::getEssayId, essayId));
     }
@@ -74,13 +67,40 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
     }
 
     @Override
-    public boolean likeClick(Long commentId) {
+    public IPage<EssayCommentVo> getCommentPageByUserId(Page page) {
+        return essayCommentMapper.getCommentPageByUserId(page, new QueryWrapper<>());
+    }
+
+    @Override
+    public IPage<EssayCommentVo> getCommentPageByUserId(Page page, QueryWrapper<EssayComment> queryWrapper) {
+        queryWrapper.or().isNull("tecl.like_id");
+        return essayCommentMapper.getCommentPageByUserId(page, queryWrapper);
+    }
+
+    @Override
+    public boolean addLike(Long commentId) {
         EssayComment byId = this.getById(commentId);
         if (byId == null) {
             throw new ServiceException(300, "不存在该评论");
         }
         byId.setLike(byId.getLike() + 1);
         return this.updateById(byId);
+    }
+
+    @Override
+    public boolean reduceLike(Long commentId) {
+        EssayComment byId = this.getById(commentId);
+        if (byId == null) {
+            throw new ServiceException(300, "不存在该评论");
+        }
+        byId.setLike(Math.max(byId.getLike() - 1, 0));
+        return this.updateById(byId);
+    }
+
+    @Override
+    public boolean existsById(Long commentId) {
+        EssayComment byId = this.getById(commentId);
+        return byId != null;
     }
 
 

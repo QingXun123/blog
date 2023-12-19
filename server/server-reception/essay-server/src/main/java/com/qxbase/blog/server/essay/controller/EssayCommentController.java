@@ -36,12 +36,6 @@ public class EssayCommentController {
                 "发布成功");
     }
 
-    @ApiOperation("根据文章id获取评论列表")
-    @GetMapping("/getCommentByEssayId")
-    public Result getCommentByEssayId(@RequestParam Long essayId) {
-        return Result.rSuccess(essayCommentService.getCommentListByEssayId(essayId));
-    }
-
     @ApiOperation("根据文章id获取评论次数")
     @GetMapping("/getCountByEssayId")
     public Result getCountByEssayId(@RequestParam Long essayId) {
@@ -73,9 +67,4 @@ public class EssayCommentController {
                 .eq(EssayComment::getReplySuperCommentId, commentId)));
     }
 
-    @ApiOperation("根据评论id点赞")
-    @PostMapping("/likeClick")
-    public Result likeClick(@RequestParam("commentId") Long commentId) {
-        return Result.assertBool(essayCommentService.likeClick(commentId), "点赞成功", "点赞失败");
-    }
 }

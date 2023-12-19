@@ -34,6 +34,8 @@ public class EssayCommentVo {
 
     private Integer like = 0;
 
+    private Long likeId;
+
     @TableField(fill = FieldFill.INSERT)
     private Timestamp createTime;
 

@@ -21,22 +21,47 @@
     <select id="getCommentPage"
             parameterType="com.baomidou.mybatisplus.core.metadata.IPage"
             resultType="com.qxbase.blog.data.vo.EssayCommentVo">
-        select
-            tec.comment_id as commentId,
-            tec.user_id as userId,
-            tec.reply_super_comment_id as replySuperCommentId,
-            tec.reply_comment_id as replyCommentId,
-            tec.essay_id as essayId,
-            tec.content as content,
-            tec.type as type,
-            tec.like as `like`,
-            tec.create_time as createTime,
-            tec.update_time as updateTime,
+        select tec.comment_id             as commentId,
+               tec.user_id                as userId,
+               tec.reply_super_comment_id as replySuperCommentId,
+               tec.reply_comment_id       as replyCommentId,
+               tec.essay_id               as essayId,
+               tec.content                as content,
+               tec.type                   as type,
+               tec.like                   as `like`,
+               tec.create_time            as createTime,
+               tec.update_time            as updateTime,
 
-            tu.user_name as userName,
-            tu.img as img
+               tu.user_name               as userName,
+               tu.img                     as img,
+
+               tecl.like_id               as likeId
         from t_essay_comment tec
-        left join t_user tu on tec.user_id = tu.user_id
+                 left join t_user tu on tec.user_id = tu.user_id
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="getCommentPageByUserId"
+            parameterType="com.baomidou.mybatisplus.core.metadata.IPage"
+            resultType="com.qxbase.blog.data.vo.EssayCommentVo">
+        select tec.comment_id             as commentId,
+               tec.user_id                as userId,
+               tec.reply_super_comment_id as replySuperCommentId,
+               tec.reply_comment_id       as replyCommentId,
+               tec.essay_id               as essayId,
+               tec.content                as content,
+               tec.type                   as type,
+               tec.like                   as `like`,
+               tec.create_time            as createTime,
+               tec.update_time            as updateTime,
+
+               tu.user_name               as userName,
+               tu.img                     as img,
+
+               tecl.like_id               as likeId
+        from t_essay_comment tec
+                 left join t_user tu on tec.user_id = tu.user_id
+                 left join t_essay_comment_like tecl on tec.comment_id = tecl.comment_id
             ${ew.customSqlSegment}
     </select>
 
