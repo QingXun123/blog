@@ -49,10 +49,10 @@ public class EssayCommentController {
             return Result.rSuccess(essayCommentService.getCommentPageByUserId(page,
                     new QueryWrapper<EssayComment>()
                             .and(wrapper1 -> wrapper1
-                                    .and(wrapper2 -> wrapper2
-                                            .eq("tec.essay_id", page.getRecords().get(0))
-                                            .eq("tecl.user_id", page.getRecords().get(1)))
-                                    .or().isNull("tecl.like_id"))
+                                    .eq("tec.essay_id", page.getRecords().get(0))
+                                    .or(wrapper2 -> wrapper2
+                                            .eq("tecl.user_id", page.getRecords().get(1))
+                                            .isNull("tecl.like_id")))
                             .isNull("tec.reply_super_comment_id")));
         }
         return Result.rSuccess(essayCommentService.getCommentPage(page,

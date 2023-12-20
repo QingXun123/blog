@@ -79,4 +79,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User byId = this.getById(userId);
         return byId != null;
     }
+
+    @Override
+    public boolean existsByUserName(String userName) {
+        return lambdaQuery()
+                .eq(User::getUserName, userName)
+                .exists();
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return lambdaQuery()
+                .eq(User::getEmail, email)
+                .exists();
+    }
 }

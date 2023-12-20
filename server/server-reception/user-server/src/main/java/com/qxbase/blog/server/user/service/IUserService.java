@@ -21,11 +21,17 @@ public interface IUserService extends IService<User> {
 
     boolean existsById(Long userId);
 
+    boolean existsByUserName(String userName);
+
+    boolean existsByEmail(String email);
+
     @Override
     default boolean save(User entity) {
-        User oneByEmail = this.getOneByEmail(entity.getEmail());
-        if (oneByEmail != null) {
-            throw new ServiceException(300, "已存在该用户");
+        if (this.existsByEmail(entity.getEmail())) {
+            throw new ServiceException(300, "该邮箱已存在");
+        }
+        if (this.existsByUserName(entity.getUserName())) {
+            throw new ServiceException(300, "该用户名已存在");
         }
         return IService.super.save(entity);
     }
