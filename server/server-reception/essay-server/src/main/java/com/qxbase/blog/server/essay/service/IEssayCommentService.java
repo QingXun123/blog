@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qxbase.blog.data.dto.EssayCommentDeleteDto;
 import com.qxbase.blog.data.dto.EssayInfoDto;
 import com.qxbase.blog.data.entity.EssayComment;
 import com.qxbase.blog.data.entity.EssayInfo;
@@ -30,4 +31,6 @@ public interface IEssayCommentService extends IService<EssayComment> {
     boolean reduceLike(Long commentId);
 
     boolean existsById(Long commentId);
+
+    boolean deleteComment(EssayComment essayComment);
 }

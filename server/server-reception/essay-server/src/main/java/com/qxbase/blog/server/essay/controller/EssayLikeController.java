@@ -1,5 +1,6 @@
 package com.qxbase.blog.server.essay.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.qxbase.blog.common.utils.BeanUtils;
 import com.qxbase.blog.data.dto.EssayLikeDto;
 import com.qxbase.blog.data.entity.EssayLike;
@@ -21,6 +22,7 @@ public class EssayLikeController {
 
     @ApiOperation("根据文章id、用户id点赞")
     @PostMapping("/like")
+    @SaCheckLogin
     public Result like(@RequestBody EssayLikeDto essayLikeDto) {
         return Result.assertBool(
                 essayLikeService.like(BeanUtils.copyInstance(EssayLike.class, essayLikeDto)),

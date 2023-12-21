@@ -3,12 +3,11 @@ package com.qxbase.blog.server.essay.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qxbase.blog.common.utils.BeanUtils;
-import com.qxbase.blog.data.entity.EssayComment;
+import com.qxbase.blog.data.dto.EssayCommentDeleteDto;
 import com.qxbase.blog.data.dto.EssayCommentDto;
-import com.qxbase.blog.data.vo.EssayCommentVo;
+import com.qxbase.blog.data.entity.EssayComment;
 import com.qxbase.blog.server.data.result.Result;
 import com.qxbase.blog.server.essay.service.IEssayCommentService;
 import io.swagger.annotations.Api;
@@ -16,7 +15,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 
 @RestController
 @Api(tags = "评论接口")
@@ -89,4 +87,12 @@ public class EssayCommentController {
                 .eq(EssayComment::getReplyCommentId, commentId)));
     }
 
+    @ApiOperation("删除评论")
+    @PostMapping("/deleteComment")
+    @SaCheckLogin
+    public Result deleteComment(@RequestBody EssayCommentDeleteDto essayCommentDeleteDto) {
+        return Result.assertBool(essayCommentService.deleteComment(
+                        BeanUtils.copyInstance(EssayComment.class, essayCommentDeleteDto)),
+                "删除成功", "删除失败");
+    }
 }

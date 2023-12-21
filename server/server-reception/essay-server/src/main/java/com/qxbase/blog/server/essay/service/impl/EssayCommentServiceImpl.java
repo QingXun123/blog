@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qxbase.blog.common.exception.ServiceException;
+import com.qxbase.blog.data.dto.EssayCommentDeleteDto;
 import com.qxbase.blog.data.entity.EssayComment;
 import com.qxbase.blog.data.vo.EssayCommentVo;
 import com.qxbase.blog.server.essay.mapper.EssayCommentMapper;
@@ -100,6 +101,19 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
     public boolean existsById(Long commentId) {
         EssayComment byId = this.getById(commentId);
         return byId != null;
+    }
+
+    @Override
+    public boolean deleteComment(EssayComment essayComment) {
+        if (!this.existsById(essayComment.getCommentId())) {
+            throw new ServiceException(300, "不存在该评论");
+        }
+        if (!userService.existsById(essayComment.getUserId())) {
+            throw new ServiceException(300, "不存在该用户");
+        }
+        this.remove(new LambdaQueryWrapper<EssayComment>()
+                .eq(EssayComment::getReplySuperCommentId, essayComment.getCommentId()));
+        return this.removeById(essayComment.getCommentId());
     }
 
 
