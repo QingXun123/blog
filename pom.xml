@@ -123,6 +123,11 @@
                 <artifactId>data-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.data</groupId>
+                <artifactId>data-chat</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- server 模块 -->
             <dependency>
@@ -133,6 +138,11 @@
             <dependency>
                 <groupId>com.qxbase.blog.server.essay</groupId>
                 <artifactId>essay-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qxbase.blog.server.chat</groupId>
+                <artifactId>chat-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

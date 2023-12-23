@@ -43,34 +43,13 @@ public class EssayCommentController {
     @ApiOperation("根据文章id获取评论分页")
     @PostMapping("/getCommentPage")
     public Result getCommentPage(@RequestBody Page page) {
-        if (page.getRecords().get(1) != null) {
-            return Result.rSuccess(essayCommentService.getCommentPageByUserId(page,
-                    new QueryWrapper<EssayComment>()
-                            .and(wrapper1 -> wrapper1
-                                    .eq("tec.essay_id", page.getRecords().get(0))
-                                    .or(wrapper2 -> wrapper2
-                                            .eq("tecl.user_id", page.getRecords().get(1))
-                                            .isNull("tecl.like_id")))
-                            .isNull("tec.reply_super_comment_id")));
-        }
-        return Result.rSuccess(essayCommentService.getCommentPage(page,
-                new QueryWrapper<EssayComment>()
-                        .eq("tec.essay_id", page.getRecords().get(0))
-                        .isNull("tec.reply_super_comment_id")));
+        return Result.rSuccess(essayCommentService.getCommentPage(page));
     }
 
     @ApiOperation("根据评论id获取回复分页")
     @PostMapping("/getNextCommentPage")
     public Result getNextCommentPage(@RequestBody Page page) {
-        if (page.getRecords().get(1) != null) {
-            return Result.rSuccess(essayCommentService.getCommentPageByUserId(page,
-                    new QueryWrapper<EssayComment>()
-                            .eq("tec.reply_super_comment_id", page.getRecords().get(0))
-                            .eq("tec.user_id", page.getRecords().get(1))));
-        }
-        return Result.rSuccess(essayCommentService.getCommentPage(page,
-                new QueryWrapper<EssayComment>()
-                        .eq("tec.reply_super_comment_id", page.getRecords().get(0))));
+        return Result.rSuccess(essayCommentService.getNextCommentPage(page));
     }
 
     @ApiOperation("根据评论id获取回复数量")

@@ -70,4 +70,12 @@ public class EssayLikeServiceImpl extends ServiceImpl<EssayLikeMapper, EssayLike
                 .eq(EssayLike::getUserId, essayLike.getUserId())
                 .exists();
     }
+
+    @Override
+    public boolean existsByCommentIdAndUserId(Long commentId, Long userId) {
+        return lambdaQuery()
+                .eq(EssayLike::getCommentId, commentId)
+                .eq(EssayLike::getUserId, userId)
+                .exists();
+    }
 }

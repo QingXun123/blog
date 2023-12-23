@@ -12,6 +12,7 @@
     <modules>
         <module>user-server</module>
         <module>essay-server</module>
+        <module>chat-server</module>
     </modules>
 
     <groupId>com.qxbase.blog.server.reception</groupId>

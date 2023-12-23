@@ -18,13 +18,17 @@ public interface IEssayCommentService extends IService<EssayComment> {
 
     Long countByEssayId(Long essayId);
 
+    IPage<EssayCommentVo> pageLJoinUser(Page page);
+
+    IPage<EssayCommentVo> pageLJoinUser(Page page, QueryWrapper<EssayComment> queryWrapper);
+
     IPage<EssayCommentVo> getCommentPage(Page page);
 
-    IPage<EssayCommentVo> getCommentPage(Page page, QueryWrapper<EssayComment> queryWrapper);
+    IPage<EssayCommentVo> getNextCommentPage(Page page);
 
-    IPage<EssayCommentVo> getCommentPageByUserId(Page page);
+    IPage<EssayCommentVo> pageByUserId(Page page);
 
-    IPage<EssayCommentVo> getCommentPageByUserId(Page page, QueryWrapper<EssayComment> queryWrapper);
+    IPage<EssayCommentVo> pageByUserId(Page page, QueryWrapper<EssayComment> queryWrapper);
 
     boolean addLike(Long commentId);
 

@@ -27,6 +27,10 @@
             <groupId>com.qxbase.blog.server.essay</groupId>
             <artifactId>essay-server</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.qxbase.blog.server.chat</groupId>
+            <artifactId>chat-server</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

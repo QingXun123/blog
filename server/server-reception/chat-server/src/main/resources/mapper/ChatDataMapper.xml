@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qxbase.blog.server.chat.mapper.ChatDataMapper">
+
+    <resultMap id="BaseResultMap" type="com.qxbase.blog.data.entity.ChatData">
+        <id property="chatDataId" column="chat_data_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roomId" column="room_id"/>
+        <result property="chatContent" column="chat_content"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+
+    </resultMap>
+
+    <select id="chatList"
+            resultType="com.qxbase.blog.data.vo.ChatDataInfoVo">
+        select tcd.chat_data_id as chatDataId,
+               tcd.user_id      as userId,
+               tcd.room_id      as roomId,
+               tcd.type         as type,
+               tcd.chat_content as chatContent,
+               tcd.create_time  as createTime,
+               tcd.update_time  as updateTime,
+
+               tu.user_name     as userName
+        from t_chat_data tcd
+                 left join t_user tu on tcd.user_id = tu.user_id
+            ${ew.customSqlSegment}
+    </select>
+
+</mapper>

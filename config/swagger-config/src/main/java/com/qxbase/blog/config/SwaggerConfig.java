@@ -53,6 +53,17 @@ public class SwaggerConfig {
 				.apiInfo(apiInfo());
 	}
 
+	@Bean
+	public Docket chatApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("聊天室模块")
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.qxbase.blog.server.chat.controller"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo());
+	}
+
 	 private ApiInfo apiInfo() {
 	 	return new ApiInfoBuilder()
 	 			.title("QxBase博客 API") //  可以用来自定义API的主标题

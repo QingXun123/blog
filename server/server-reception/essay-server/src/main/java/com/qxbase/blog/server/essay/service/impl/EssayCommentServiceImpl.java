@@ -9,14 +9,18 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qxbase.blog.common.exception.ServiceException;
 import com.qxbase.blog.data.dto.EssayCommentDeleteDto;
 import com.qxbase.blog.data.entity.EssayComment;
+import com.qxbase.blog.data.entity.EssayLike;
 import com.qxbase.blog.data.vo.EssayCommentVo;
+import com.qxbase.blog.server.data.result.Result;
 import com.qxbase.blog.server.essay.mapper.EssayCommentMapper;
 import com.qxbase.blog.server.essay.service.IEssayCommentService;
 import com.qxbase.blog.server.essay.service.IEssayInfoService;
+import com.qxbase.blog.server.essay.service.IEssayLikeService;
 import com.qxbase.blog.server.user.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, EssayComment> implements IEssayCommentService {
@@ -29,6 +33,9 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
 
     @Resource
     private IEssayCommentService essayCommentService;
+
+    @Resource
+    private IEssayLikeService essayLikeService;
 
     @Resource
     private EssayCommentMapper essayCommentMapper;
@@ -57,24 +64,86 @@ public class EssayCommentServiceImpl extends ServiceImpl<EssayCommentMapper, Ess
     }
 
     @Override
-    public IPage<EssayCommentVo> getCommentPage(Page page) {
+    public IPage<EssayCommentVo> pageLJoinUser(Page page) {
         return essayCommentMapper.getCommentPage(page, new QueryWrapper<>());
     }
 
     @Override
-    public IPage<EssayCommentVo> getCommentPage(Page page, QueryWrapper<EssayComment> queryWrapper) {
+    public IPage<EssayCommentVo> pageLJoinUser(Page page, QueryWrapper<EssayComment> queryWrapper) {
         return essayCommentMapper.getCommentPage(page, queryWrapper);
-
     }
 
     @Override
-    public IPage<EssayCommentVo> getCommentPageByUserId(Page page) {
+    public IPage<EssayCommentVo> getCommentPage(Page page) {
+        if (page.getRecords().get(1) != null) {
+            Object userId = page.getRecords().get(1);
+            this.pageLJoinUser(page,
+                    new QueryWrapper<EssayComment>()
+                            .eq("tec.essay_id", page.getRecords().get(0))
+                            .isNull("tec.reply_super_comment_id"));
+            List<EssayCommentVo> records = page.getRecords();
+            for (EssayCommentVo essayCommentVo : records) {
+                EssayLike essayLike = essayLikeService.getOne(new LambdaQueryWrapper<EssayLike>()
+                        .eq(EssayLike::getCommentId, essayCommentVo.getCommentId())
+                        .eq(EssayLike::getUserId, userId));
+                if (essayLike == null) {
+                    continue;
+                }
+                Long likeId = essayLike.getLikeId();
+                essayCommentVo.setLikeId(likeId);
+            }
+            return page;
+        }
+        return this.pageLJoinUser(page,
+                new QueryWrapper<EssayComment>()
+                        .eq("tec.essay_id", page.getRecords().get(0))
+                        .isNull("tec.reply_super_comment_id"));
+    }
+
+    @Override
+    public IPage<EssayCommentVo> getNextCommentPage(Page page) {
+        if (page.getRecords().get(1) != null) {
+            Object userId = page.getRecords().get(1);
+            this.pageLJoinUser(page,
+                    new QueryWrapper<EssayComment>()
+                            .eq("tec.reply_super_comment_id", page.getRecords().get(0)));
+            List<EssayCommentVo> records = page.getRecords();
+            for (EssayCommentVo essayCommentVo : records) {
+                EssayLike essayLike = essayLikeService.getOne(new LambdaQueryWrapper<EssayLike>()
+                        .eq(EssayLike::getCommentId, essayCommentVo.getCommentId())
+                        .eq(EssayLike::getUserId, userId));
+                if (essayLike == null) {
+                    continue;
+                }
+                Long likeId = essayLike.getLikeId();
+                essayCommentVo.setLikeId(likeId);
+            }
+            return page;
+        }
+        return this.pageLJoinUser(page,
+                new QueryWrapper<EssayComment>()
+                        .eq("tec.reply_super_comment_id", page.getRecords().get(0)));
+    }
+
+    @Override
+    public IPage<EssayCommentVo> pageByUserId(Page page) {
         return essayCommentMapper.getCommentPageByUserId(page, new QueryWrapper<>());
     }
 
     @Override
-    public IPage<EssayCommentVo> getCommentPageByUserId(Page page, QueryWrapper<EssayComment> queryWrapper) {
-        return essayCommentMapper.getCommentPageByUserId(page, queryWrapper);
+    public IPage<EssayCommentVo> pageByUserId(Page page, QueryWrapper<EssayComment> queryWrapper) {
+        IPage page1 = this.page(page, new LambdaQueryWrapper<EssayComment>()
+                .eq(EssayComment::getReplyCommentId, page.getRecords().get(0)));
+        List<EssayCommentVo> records = page1.getRecords();
+        for (EssayCommentVo essayCommentVo : records) {
+            essayCommentVo.setLikeId(
+                    essayLikeService.getOne(new LambdaQueryWrapper<EssayLike>()
+                                    .eq(EssayLike::getCommentId, essayCommentVo.getReplyCommentId())
+                                    .eq(EssayLike::getUserId, page.getRecords().get(1)))
+                            .getLikeId());
+        }
+        page1.setRecords(records);
+        return page1;
     }
 
     @Override

@@ -10,4 +10,7 @@ public interface IEssayLikeService extends IService<EssayLike> {
     boolean dislike(EssayLike essayLike);
 
     boolean existsByCommentIdAndUserId(EssayLike essayLike);
+
+    boolean existsByCommentIdAndUserId(Long commentId, Long userId);
+
 }

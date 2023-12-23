@@ -13,6 +13,7 @@
         <module>data-web</module>
         <module>data-essay</module>
         <module>data-user</module>
+        <module>data-chat</module>
     </modules>
 
     <groupId>com.qxbase.blog.data</groupId>
